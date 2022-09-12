@@ -23,7 +23,7 @@ jobs:
 
       - name: Run and store diff
         run: |
-          nbdiff ${{ github.event.pull_request.base.ref }} --no-color > diff.log
+          nbdiff-web ${{ github.event.pull_request.base.ref }} --no-color > diff.log
           sed -i '1s/^/```diff\n&/' diff.log
           sed -i '$s/$/\n&```/' diff.log
 

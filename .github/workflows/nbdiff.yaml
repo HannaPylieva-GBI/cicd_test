@@ -23,21 +23,19 @@ jobs:
 
       - name: Run and store diff
         run: |
-          nbdiff-web ${{ github.event.pull_request.base.ref }} --no-color > diff.log
-          sed -i '1s/^/```diff\n&/' diff.log
-          sed -i '$s/$/\n&```/' diff.log
+          nbdiff-web ${{ github.event.pull_request.base.ref }}
 
-      - name: Get comment body
-        id: get-comment-body
-        run: |
-          body=$(cat diff.log)
-          body="${body//'%'/'%25'}"
-          body="${body//$'\n'/'%0A'}"
-          body="${body//$'\r'/'%0D'}"
-          echo ::set-output name=body::$body
+#       - name: Get comment body
+#         id: get-comment-body
+#         run: |
+#           body=$(cat diff.log)
+#           body="${body//'%'/'%25'}"
+#           body="${body//$'\n'/'%0A'}"
+#           body="${body//$'\r'/'%0D'}"
+#           echo ::set-output name=body::$body
 
-      - name: Create comment
-        uses: peter-evans/create-or-update-comment@v1
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          body: ${{ steps.get-comment-body.outputs.body }}
+#       - name: Create comment
+#         uses: peter-evans/create-or-update-comment@v1
+#         with:
+#           issue-number: ${{ github.event.pull_request.number }}
+#           body: ${{ steps.get-comment-body.outputs.body }}
